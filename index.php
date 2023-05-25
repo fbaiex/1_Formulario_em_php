@@ -33,13 +33,18 @@
 
             if(isset($_POST['enviado'])) {
 
-                if(empty($_POST['name']) || strlen($_POST['name'] < 3) || strlen($_POST['name'] > 90) ) {
-                    echo "<p class=\"error\">Preencha o campo nome</p>";
+                if(empty($_POST['name']) || strlen($_POST['name']) < 3 || strlen($_POST['name']) > 90) {
+                    echo '<p class="error">Preencha o campo nome</p>';
                     die();
                 }
 
-                if(empty($_POST['name']) || strlen($_POST['name'] < 3) || strlen($_POST['name'] > 90) ) {
-                    echo "<p class=\"error\">Preencha o campo nome</p>";
+                if(empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL )) {
+                    echo '<p class="error">Preencha o campo E-mail</p>';
+                    die();
+                }
+
+                if(!empty($_POST['website']) && !filter_var($_POST['website'], FILTER_VALIDATE_URL)) {
+                    echo '<p class="error">Preencha o campo Website</p>';
                     die();
                 }
 
@@ -47,6 +52,11 @@
 
                 if(isset($_POST['gender'])){
                     $gender = $_POST['gender'];
+
+                    if($gender != "masculino" && $gender != "feminino" && $gender != "outros") {
+                        echo '<p class="error">Erro no campo sexo</p>';
+                        die();
+                    }
                 }
 
                 echo "<p>Nome: " . $_POST['name'] . "</p>";
